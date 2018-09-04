@@ -1,0 +1,17 @@
+nav,p{
+    text-align: center;
+}
+.gameBoard{
+    background: teal;
+    padding: 20px;
+    margin: 20px;
+    color: white;
+}
+.startButton{
+    height: 20%;
+    width: 30%;
+    padding: 20px;
+    margin-top: 20px; 
+    font-size: 18px;
+    
+}
