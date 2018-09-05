@@ -1,4 +1,4 @@
-nav,p{
+nav,p,button{
     text-align: center;
 }
 .gameBoard{
@@ -14,4 +14,28 @@ nav,p{
     margin-top: 20px; 
     font-size: 18px;
     
+}
+/* p{
+    padding: 20px;
+    margin-top: 20px;
+    font-size: 18px;
+
+} */
+.seperateQuestions{
+    padding: 20px;
+    font-weight: bold;
+}
+
+label{
+    padding: 5px;
+}
+#submit{
+    margin: 0 auto;
+    display: block;
+}
+body{
+    background-repeat: repeat;
+    background-size: cover;
+    z-index:-1;
+
 }
