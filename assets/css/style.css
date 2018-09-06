@@ -8,11 +8,11 @@ nav,p,button{
     color: white;
 }
 .startButton{
-    height: 20%;
-    width: 30%;
+    
     padding: 20px;
-    margin-top: 20px; 
     font-size: 18px;
+    margin: 0 auto;
+    display: block;
     
 }
 /* p{
@@ -29,7 +29,7 @@ nav,p,button{
 label{
     padding: 5px;
 }
-#submit{
+#submit,#playAgain{
     margin: 0 auto;
     display: block;
 }

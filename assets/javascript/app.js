@@ -16,6 +16,10 @@ var timeLeft = 30;
 
 var timerId;
 
+//display start button
+//var newButton = $("<button>").addClass("btn btn-light btn-lg startButton").text("Start");
+
+//$("#start").append(newButton);
 
 resetToBeginning();
 
@@ -85,15 +89,18 @@ function resetToBeginning() {
 
 ];
 
-    //display start button
-    var newButton = $("<button>").addClass("btn btn-light btn-lg startButton").text("Start");
-
-    $("#start").append(newButton);
+    $("#start").show();
 
     //listOfQuestions = [questions];
 
     $("#submit").hide();
+    $("#playAgain").hide();
+    $("#Results").empty();
 
+    wins = 0;
+    losses = 0;
+    unanswered = 0;
+    
 
 
 }
@@ -101,7 +108,8 @@ function resetToBeginning() {
 function countdown() {
     if (timeLeft == 0) {
         clearTimeout(timerId);
-        alert("Sorry looks like time is up!");
+        timeLeft = 30;
+        alert("Sorry looks like time is up!");     
         displayScore();
 
     } else {
@@ -134,12 +142,16 @@ function displayScore(){
     $("#timeRemaining").hide();
     $("#QuizGame").empty();
     $("#submit").hide();
+    
 
     var correct = $("<div> Correct : " + wins + "</div>");
     var incorrect = $("<div> Incorrect : " + losses + "</div>");
     var didntAnswer = $("<div> Unanswered : " + unanswered + "</div>");
 
     $("#Results").append(correct,incorrect,didntAnswer);
+    $("#Results").show();
+    $("#playAgain").show();
+   
     
 
 }
@@ -148,6 +160,7 @@ function displayScore(){
 
 $(".startButton").on("click", function(){
 
+    $("#timeRemaining").hide();
     timerId = setInterval(countdown, 1000);
 
    //hide button
@@ -156,7 +169,7 @@ $(".startButton").on("click", function(){
     //show submit button
     $("#submit").show();
 
-
+    $("#timeRemaining").show();
 
 
 
@@ -199,11 +212,17 @@ $("#submit").on("click", function(){
     clearTimeout(timerId);
     
     
-
+    
 
     displayScore();
 
 
+});
+
+$('#playAgain').on('click', function(){
+    $("#Results").hide();
+	$(this).hide();
+	resetToBeginning();
 });
 
 
