@@ -7,6 +7,15 @@ var question4;
 var question5;
 var listOfQuestions = [];
 var triviaQuestions; 
+var wins = 0;
+var losses = 0;
+var unanswered = 0;
+var userGuess;
+var timeLeft = 30;
+//var elem = document.getElementById("#timeRemaining");
+
+var timerId;
+
 
 resetToBeginning();
 
@@ -89,30 +98,67 @@ function resetToBeginning() {
 
 }
 
+function countdown() {
+    if (timeLeft == 0) {
+        clearTimeout(timerId);
+        alert("Sorry looks like time is up!");
+        displayScore();
+
+    } else {
+        $("#timeRemaining").text(timeLeft + " seconds remaining");
+        timeLeft--;
+    }
+}
+
+function displayScore(){
+
+    
+
+
+    for(var i = 0; i < triviaQuestions.length; i++){
+        userGuess = $(`input[name=${i}]:checked`).val();
+        console.log(userGuess);
+   
+        if(userGuess === triviaQuestions[i].answer ){
+           wins++;
+        }
+        else if(typeof userGuess === 'undefined' ){
+            unanswered++;
+        }
+        else{
+            losses++;
+        }
+   
+    }
+
+    $("#timeRemaining").hide();
+    $("#QuizGame").empty();
+    $("#submit").hide();
+
+    var correct = $("<div> Correct : " + wins + "</div>");
+    var incorrect = $("<div> Incorrect : " + losses + "</div>");
+    var didntAnswer = $("<div> Unanswered : " + unanswered + "</div>");
+
+    $("#Results").append(correct,incorrect,didntAnswer);
+    
+
+}
+
 
 
 $(".startButton").on("click", function(){
+
+    timerId = setInterval(countdown, 1000);
+
    //hide button
     $(this).hide();
 
     //show submit button
     $("#submit").show();
 
-    //display timer
-    var timeLeft = 300;
-    //var elem = document.getElementById("#timeRemaining");
 
-    var timerId = setInterval(countdown, 1000);
 
-    function countdown() {
-        if (timeLeft == 0) {
-            clearTimeout(timerId);
-            alert("Sorry looks like time is up!");
-        } else {
-            $("#timeRemaining").text(timeLeft + " seconds remaining");
-            timeLeft--;
-        }
-    }
+
 
 
     //display questions
@@ -126,14 +172,14 @@ $(".startButton").on("click", function(){
         var newQuestion = (i + 1) + ": " + triviaQuestions[i].question + '</br>';
         var listOfAnswers = [];
 
-        
+        newQuestionDiv.attr("name", i );
         
         
         for(letter in triviaQuestions[i].choices){
            // var answerButtons = $("<input>").attr("type", "radio");
             //var label = answerButtons.attr("name", triviaQuestions[i].choices[j]);
             //answerButtons.text("name",triviaQuestions[i].choices[j]);
-            listOfAnswers.push( `<label> <input type="radio" name="question${i}" value="${letter}">  ${triviaQuestions[i].choices[letter]}</label>`);
+            listOfAnswers.push( `<label> <input type="radio" name="${i}" value="${letter}">  ${triviaQuestions[i].choices[letter]}</label>`);
  
         }
         newQuestionDiv.html(newQuestion);
@@ -144,6 +190,18 @@ $(".startButton").on("click", function(){
 
     }
 
+
+
+});
+
+$("#submit").on("click", function(){
+
+    clearTimeout(timerId);
+    
+    
+
+
+    displayScore();
 
 
 });
